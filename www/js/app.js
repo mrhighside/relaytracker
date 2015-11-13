@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
+angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'relaytracker.services'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -39,6 +39,25 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   })
 
   // Each tab has its own nav history stack:
+    .state('tab.runners', {
+      url: '/runners',
+      views: {
+        'tab-runners': {
+          templateUrl: 'templates/tab-runners.html',
+          controller: 'RunnersCtrl'
+        }
+      }
+    })
+
+    .state('tab.runner-detail', {
+      url: '/runners/:runnerId',
+      views: {
+        'tab-runners': {
+          templateUrl: 'templates/runner-detail.html',
+          controller: 'RunnerDetailCtrl'
+        }
+      }
+    })
 
   .state('tab.dash', {
     url: '/dash',
@@ -80,6 +99,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/dash');
+  $urlRouterProvider.otherwise('/tab/runners');
 
 });

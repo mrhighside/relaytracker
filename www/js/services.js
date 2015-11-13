@@ -1,4 +1,4 @@
-angular.module('starter.services', [])
+angular.module('relaytracker.services', [])
 
 .factory('Chats', function() {
   // Might use a resource here that returns a JSON array
@@ -47,4 +47,103 @@ angular.module('starter.services', [])
       return null;
     }
   };
-});
+})
+
+  .factory('Runners', ['$http', function($http) {
+    var urlBase = 'http://relaytracker.azurewebsites.net/api/Runners';
+    var runners = {};
+
+    var runnerResults =  [
+      {
+        id: 1,
+        firstName: "Jen",
+        lastName: "Beudreu",
+        estimatedPace: "8:40",
+        paceUnits: "min/mile",
+        runnerNumber: 1,
+        picUrl: "img/Female.jpg"
+      },
+      {
+        id: 2,
+        firstName: "Jill",
+        lastName: "Rybarczyk",
+        estimatedPace: "9:40",
+        paceUnits: "min/mile",
+        runnerNumber: 2,
+        picUrl: "img/Female.jpg"
+      },
+      {
+        id: 3,
+        firstName: "Andy",
+        lastName: "Malinowski",
+        estimatedPace: "9:30",
+        paceUnits: "min/mile",
+        runnerNumber: 3,
+        picUrl: "img/male.png"
+      },
+      {
+        id: 4,
+        firstName: "Eric",
+        lastName: "Malinowski",
+        estimatedPace: "9:20",
+        paceUnits: "min/mile",
+        runnerNumber: 4,
+        picUrl: "img/male.png"
+      },
+      {
+        id: 5,
+        firstName: "Danielle",
+        lastName: "Sterling",
+        estimatedPace: "8:15",
+        paceUnits: "min/mile",
+        runnerNumber: 5,
+        picUrl: "img/Female.jpg"
+      }
+    ];
+
+    runners.getRunners = function () {
+      console.log("Getting Runners: ");
+      //console.log($http.get(urlBase));
+
+
+      var promise = new Promise(function(resolve, reject) {
+        // do a thing, possibly async, then…
+
+        if (true) {
+          resolve(runnerResults);
+        }
+        else {
+          reject(Error("It broke"));
+        }
+      });
+      console.log("Faked Promise:");
+
+      return promise;
+      //comment out until Eric gets off his ass
+      //return $http.get(urlBase);
+    };
+
+    runners.getRunner = function(runnerID){
+      for (var i = 0; i < runnerResults.length; i++) {
+        if (runnerResults[i].id === parseInt(runnerID)) {
+          return runnerResults[i];
+        }
+      }
+    };
+
+    return runners;
+  }])
+
+.factory('Incidents', ['$http', function($http) {
+  var urlBase = 'http://relaytracker.azurewebsites.net/api/Event';
+  var incidents = {};
+
+  incidents.getIncidents = function () {
+    console.log("Getting Incidents: ");
+    console.log($http.get(urlBase));
+
+    return $http.get(urlBase);
+  };
+
+  return incidents;
+}]);

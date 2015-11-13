@@ -1,0 +1,26 @@
+<ion-view view-title="Runners">
+  <ion-content class="padding">
+    <ion-list ng-controller="RunnersCtrl"
+              show-delete="shouldShowDelete"
+              show-reorder="shouldShowReorder"
+              can-swipe="listCanSwipe">
+      <ion-item class="list card item-thumbnail-left" ng-repeat="runner in runners">
+          <img ng-src="{{runner.picUrl}}"/>
+          <h2>{{ runner.firstName }} {{ runner.lastName }}</h2>
+          <p>Pace: {{ runner.estimatedPace }} {{runner.paceUnits }}</p>
+          <p>Runner Number: {{ runner.runnerNumber | number}}</p>
+          <ion-option-button class="button-positive"
+                             ng-click="edit(runner)">
+            Edit
+          </ion-option-button>
+          <ion-delete-button class="ion-minus-circled"
+                             ng-click="runners.splice($index, 1)">
+          </ion-delete-button>
+          <ion-reorder-button class="ion-navicon"
+                              on-reorder="reorderItem(runner, $fromIndex, $toIndex)">
+          </ion-reorder-button>
+
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>
